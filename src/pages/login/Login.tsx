@@ -37,7 +37,7 @@ function login(e: FormEvent<HTMLFormElement>) {
 
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-2 h-screen place-items-center font-bold  shadow-2xl ">
+      <div className="grid grid-cols-1 lg:grid-cols-2 h-screen place-items-center font-bold  shadow-2xl bg-slate-100 ">
         <form className="flex justify-center items-center flex-col w-1/2 gap-4 rounded-2xl bg-slate-100 "
         onSubmit={login}>
 
@@ -49,8 +49,7 @@ function login(e: FormEvent<HTMLFormElement>) {
               id="usuario"
               name="usuario"
               placeholder="Usuario"
-              focus:border-indigo-500
-              className="border-2 border-slate-700 rounded p-2"
+              className= "w-full border border-gray-300 rounded-md px-4 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-[#00856F] focus:border-[#00856F] transition"
               value={restauranteLogin.usuario}
               onChange={(e: ChangeEvent<HTMLInputElement>)=> atualizarEstado(e)}
             />
@@ -62,7 +61,7 @@ function login(e: FormEvent<HTMLFormElement>) {
               id="senha"
               name="senha"
               placeholder="Senha"
-              className="border-2 border-slate-700 rounded p-2"
+              className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-[#00856F] focus:border-[#00856F] transition"
               value = {restauranteLogin.senha}
               onChange={(e: ChangeEvent<HTMLInputElement>)=> atualizarEstado(e)}
 
@@ -70,8 +69,17 @@ function login(e: FormEvent<HTMLFormElement>) {
           </div>
           <button
             type="submit"
-            className="rounded bg-indigo-400 flex justify-center 
-                       hover:bg-indigo-900 text-white w-1/2 py-2">
+            className="w-full border-0 rounded-md px-4 py-2.5 
+               text-white
+               bg-gradient-to-br 
+               from-[#00A884] 
+               to-[#005F4F]
+               focus:outline-none 
+               focus:ring-2 
+               focus:ring-[#00856F] 
+               hover:opacity-80
+               transition
+               hover:cursor-pointer">
             {isLoading ?
             <ClipLoader
                 color="#ffffff"
@@ -87,7 +95,7 @@ function login(e: FormEvent<HTMLFormElement>) {
             Ainda não tem uma conta?{" "}
             <Link
               to="/cadastro"
-              className="text-indigo-800 hover:underline"
+              className="text-[#00856F] hover:underline"
             >
               Cadastre-se
             </Link>
@@ -96,9 +104,9 @@ function login(e: FormEvent<HTMLFormElement>) {
         <div
           className="hidden lg:flex w-full min-h-screen 
                bg-gradient-to-br 
-               from-[#00C2A0]  
-               via-[#00856F] 
-               to-[#004D40] 
+              from-[#00C2A0] 
+              via-[#009B7A] 
+              to-[#004D40]
                 items-center 
                 justify-center 
                 text-white 
