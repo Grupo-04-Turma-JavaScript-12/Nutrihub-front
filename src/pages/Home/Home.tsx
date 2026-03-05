@@ -3,7 +3,7 @@ import logo from "../../assets/mulherlegumes.png"
 function Home() {
   return (
     <section className="bg-[#DCE9E2] w-full pt-24 overflow-x-hidden">
-      <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 items-center gap-10 text-black">
+      <div className="max-w-7xl mx-auto px-6 pt-8 grid grid-cols-1 sm:px-30 sm:pt-0 md:grid-cols-2 items-center gap-10 text-black">
         
         <div className="flex flex-col gap-6 text-center md:text-left">
           <p>Bem Vindo à Nutrihub</p>
@@ -21,7 +21,7 @@ function Home() {
           <img 
             src={logo} 
             alt="Logo da Nutrihub"
-            className="w-full max-w-md md:max-w-lg"
+            className="max-w-md md:max-w-3xl"
           />
         </div>
 

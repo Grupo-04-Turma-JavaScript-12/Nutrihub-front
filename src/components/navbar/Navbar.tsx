@@ -7,7 +7,7 @@ function Navbar() {
 
   return (
     <header className="bg-[#00856F] w-full fixed top-0 left-0 z-50">
-      <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
+      <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-4 sm:px-20">
         <div>
           <h1 className="text-white font-semibold text-2xl">Nutrihub</h1>
         </div>
@@ -19,14 +19,14 @@ function Navbar() {
           <li className="hover:underline hover:cursor-pointer">Categorias</li>
 
         </ul>
-        {/* Botão Desktop */}
+
         <div className="hidden md:block">
           <button className="px-6 py-2 rounded-xl border text-white font-semibold hover:bg-white hover:text-[#00856F] transition-all duration-300">
             ENTRAR
           </button>
         </div>
 
-        {/* Ícone Mobile */}
+        {/* Icone mobile */}
         <button
           className="md:hidden text-white"
           onClick={() => setMenuAberto(!menuAberto)}
