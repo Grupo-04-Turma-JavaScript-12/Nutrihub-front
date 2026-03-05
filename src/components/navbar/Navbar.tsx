@@ -1,0 +1,54 @@
+import { useState } from "react";
+import { ListIcon } from "@phosphor-icons/react"
+
+function Navbar() {
+
+  const [menuAberto, setMenuAberto] = useState(false)
+
+  return (
+    <header className="bg-[#00856F] w-full fixed top-0 left-0 z-50">
+      <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
+        <div>
+          <h1 className="text-white font-semibold text-2xl">Nutrihub</h1>
+        </div>
+
+        <ul className="hidden md:flex text-amber-50 gap-10">
+          <li className="hover:underline hover:cursor-pointer">Home</li>
+          <li className="hover:underline hover:cursor-pointer">Perfil</li>
+          <li className="hover:underline hover:cursor-pointer">Refeições</li>
+          <li className="hover:underline hover:cursor-pointer">Categorias</li>
+
+        </ul>
+        {/* Botão Desktop */}
+        <div className="hidden md:block">
+          <button className="px-6 py-2 rounded-xl border text-white font-semibold hover:bg-white hover:text-[#00856F] transition-all duration-300">
+            ENTRAR
+          </button>
+        </div>
+
+        {/* Ícone Mobile */}
+        <button
+          className="md:hidden text-white"
+          onClick={() => setMenuAberto(!menuAberto)}
+        >
+          <ListIcon size={32} weight="bold" />
+        </button>
+      </nav>
+
+      {/* Menu Mobile */}
+      {menuAberto && (
+        <div className="md:hidden bg-[#006d5b] flex flex-col items-center gap-4 py-6 text-white">
+          <span className="hover:underline cursor-pointer">Home</span>
+          <span className="hover:underline cursor-pointer">Perfil</span>
+          <span className="hover:underline cursor-pointer">Refeições</span>
+          <span className="hover:underline cursor-pointer">Categorias</span>
+          <button className="mt-4 px-6 py-2 rounded-xl border font-semibold">
+            ENTRAR
+          </button>
+        </div>
+      )}
+    </header>
+  );
+}
+
+export default Navbar;
