@@ -1,4 +1,4 @@
-import { useContext, useState, type ChangeEvent } from "react";
+import { useContext, useEffect, useState, type ChangeEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { AuthContext } from "../../contexts/AuthContext";
@@ -9,26 +9,26 @@ function Login() {
 
   const { restaurante, handleLogin, isLoading } = useContext(AuthContext);
 
-  const [restauranteLogin, setUsuarioLogin] = useState<RestauranteLogin>(
+  const [usuarioLogin, setUsuarioLogin] = useState<RestauranteLogin>(
     {} as RestauranteLogin
   );
 
-  /*useEffect(() => {
+  useEffect(() => {
     if (restaurante.token !== "") {
-        navigate('/home')
+      navigate("/home");
     }
-}, [restaurante])*/
+  }, [restaurante]);
 
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
     setUsuarioLogin({
-      ...restauranteLogin,
+      ...usuarioLogin,
       [e.target.name]: e.target.value,
     });
   }
 
   function login(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
-    handleLogin(restauranteLogin);
+    handleLogin(usuarioLogin);
   }
 
   return (
@@ -47,7 +47,7 @@ function Login() {
               name="usuario"
               placeholder="Usuario"
               className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-[#00856F] focus:border-[#00856F] transition"
-              value={restauranteLogin.usuario}
+              value={usuarioLogin.usuario}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 atualizarEstado(e)
               }
@@ -61,7 +61,7 @@ function Login() {
               name="senha"
               placeholder="Senha"
               className="w-full border border-gray-300 rounded-md px-4 py-2.5 bg-white focus:outline-none focus:ring-2 focus:ring-[#00856F] focus:border-[#00856F] transition"
-              value={restauranteLogin.senha}
+              value={usuarioLogin.senha}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 atualizarEstado(e)
               }
