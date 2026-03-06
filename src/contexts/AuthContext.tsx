@@ -1,60 +1,62 @@
-import { createContext, useState, type ReactNode } from "react"
-import { ToastAlerta } from "../utils/ToastAlerta"
-import type { RestauranteLogin } from "../models/RestauranteLogin"
-import { login } from "../services/Service"
+import { createContext, type ReactNode, useState } from "react";
+import type { RestauranteLogin } from "../models/RestauranteLogin";
+import { login } from "../services/Service";
+import { ToastAlerta } from "../utils/ToastAlerta";
 
 interface AuthContextProps {
-    restaurante: RestauranteLogin
-    handleLogout(): void
-    handleLogin (restaurante: RestauranteLogin): Promise<void>
-    isLoading: boolean
+  restaurante: RestauranteLogin;
+  handleLogout(): void;
+  handleLogin(usuario: RestauranteLogin): Promise<void>;
+  isLoading: boolean;
 }
 
 interface AuthProviderProps {
-    children: ReactNode
+  children: ReactNode;
 }
 
-export const AuthContext = createContext({} as AuthContextProps)
+export const AuthContext = createContext({} as AuthContextProps);
 
 export function AuthProvider({ children }: AuthProviderProps) {
+  const [restaurante, setRestaurante] = useState<RestauranteLogin>({
+    id: 0,
+    nome: "",
+    usuario: "",
+    senha: "",
+    foto: "",
+    token: "",
+  });
 
-    const [restaurante, setUsuario] = useState<RestauranteLogin>({
-        id: 0,
-        nome: "",
-        usuario: "",
-        senha: "",
-        foto: "",
-        token: ""
-    })
+  const [isLoading, setIsLoading] = useState(false);
 
-    const [isLoading, setIsLoading] = useState(false)
+  async function handleLogin(restauranteLogin: RestauranteLogin) {
+    setIsLoading(true);
 
-    async function handleLogin(restauranteLogin: RestauranteLogin) {
-        setIsLoading(true)
-
-        try {
-            await login(`/usuarios/logar`, restauranteLogin, setUsuario)
-            ToastAlerta("Usuário foi autenticado com sucesso!", "sucesso")
-        } catch (error) {
-            ToastAlerta("Os dados do usuário estão inconsistentes!", "erro")
-         }
-            setIsLoading(false)
+    try {
+      await login("/usuarios/logar", restauranteLogin, setRestaurante);
+      ToastAlerta("Usuário foi autenticado com sucesso!", "sucesso");
+    } catch (error) {
+      ToastAlerta("Os dados do Usuário estão inconsistentes!", "erro");
     }
 
-    function handleLogout() {
-        setUsuario({
-            id: 0,
-            nome: "",
-            usuario: "",
-            senha: "",
-            foto: "",
-            token: ""
-        })
-    }
+    setIsLoading(false);
+  }
 
-    return (
-        <AuthContext.Provider value={{ restaurante, handleLogin, handleLogout, isLoading }}>
-            {children}
-        </AuthContext.Provider>
-    )
+  function handleLogout() {
+    setRestaurante({
+      id: 0,
+      nome: "",
+      usuario: "",
+      senha: "",
+      foto: "",
+      token: "",
+    });
+  }
+
+  return (
+    <AuthContext.Provider
+      value={{ restaurante, handleLogin, handleLogout, isLoading }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
