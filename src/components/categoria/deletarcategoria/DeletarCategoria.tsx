@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-// import { ClipLoader } from "react-spinners";
+import { ClipLoader } from "react-spinners";
 import { AuthContext } from "../../../contexts/AuthContext";
 import type Categoria from "../../../models/Categoria";
 import { buscar, deletar } from "../../../services/Service";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
+import ListCategorias from "../listcategoria/ListCategorias";
 
 function DeletarCategoria() {
   const navigate = useNavigate();
@@ -13,12 +13,11 @@ function DeletarCategoria() {
   const [categoria, setCategoria] = useState<Categoria>({} as Categoria);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { usuario, handleLogout } = useContext(AuthContext);
-  const token = usuario.token;
+  const { restaurante, handleLogout } = useContext(AuthContext);
+  const token = restaurante.token;
 
   const { id } = useParams<{ id: string }>();
 
-  // vai no backend e busca a categoria
   async function buscarPorId(id: string) {
     try {
       await buscar(`/categorias/${id}`, setCategoria, {
@@ -35,7 +34,7 @@ function DeletarCategoria() {
 
   useEffect(() => {
     if (token === "") {
-      ToastAlerta("Você precisa estar logado",'erro');
+      ToastAlerta("Você precisa estar logado", "info");
       navigate("/");
     }
   }, [token]);
@@ -56,12 +55,12 @@ function DeletarCategoria() {
         },
       });
 
-      ToastAlerta("Categoria apagada com sucesso",'sucesso');
+      ToastAlerta("Categoria apagada com sucesso", "sucesso");
     } catch (error: any) {
       if (error.toString().includes("401")) {
         handleLogout();
       } else {
-        ToastAlerta("Erro ao deletar o categoria.", 'erro');
+        ToastAlerta("Erro ao deletar a categoria.", "erro");
       }
     }
 
@@ -72,38 +71,57 @@ function DeletarCategoria() {
   function retornar() {
     navigate("/categorias");
   }
+
   return (
-    <div className="container w-1/3 mx-auto">
-      <h1 className="text-4xl text-center my-4">Deletar categoria</h1>
-      <p className="text-center font-semibold mb-4">
-        Você tem certeza de que deseja apagar a categoria a seguir?
-      </p>
-      <div className="border flex flex-col rounded-2xl overflow-hidden justify-between">
-        <header className="py-2 px-6 bg-indigo-600 text-white font-bold text-2xl">
-          {categoria.nome}
-        </header>
-        <p className="p-8 text-3xl bg-slate-200 h-full">{categoria.descricao}</p>
-        <div className="flex">
-          <button
-            className="text-slate-100 bg-red-400 hover:bg-red-600 w-full py-2"
-            onClick={retornar}
-          >
-            Não
-          </button>
-          <button
-            className="w-full text-slate-100 bg-indigo-400 
-            hover:bg-indigo-600 flex items-center justify-center"
-            onClick={deletarCategoria}
-          >
-            {isLoading ? (
-              <ClipLoader color="#ffffff" size={24} />
-            ) : (
-              <span>Sim</span>
-            )}
-          </button>
+    <section>
+      <div className="pt-15">
+        <h2 className="text-3xl font-bold text-center py-4 md:text-4xl">
+          Categorias
+        </h2>
+      </div>
+      <div className="md:container md:mx-auto md:py-4 p-4 flex flex-col gap-4 md:gap-0 border-t-[0.5px] border-gray-300">
+        <div className="w-full flex flex-col gap-4 border border-gray-300 p-2 rounded-sm">
+          <p className="text-center text-2xl md:text-3xl">Deletar categoria?</p>
+          <div className="flex flex-col">
+            <p className="font-semibold">Nome:</p>
+            <p className="p-2 text-xl font-bold bg-[#00856f3f] rounded-sm">
+              {categoria.nome}
+            </p>
+          </div>
+          <div className="flex flex-col w-full">
+            <p className="font-semibold">Descrição:</p>
+            <p className="p-2 text-xl font-bold bg-[#00856f3f] rounded-sm">
+              {categoria.descricao}
+            </p>
+          </div>
+          <div className="flex justify-end md:justify-center gap-4 md:py-4">
+            <button
+              className="bg-[#00856F] rounded-2xl w-full text-white font-semibold py-2 md:w-[15vw] hover:cursor-pointer hover:bg-[#044d40] transition-all duration-300"
+              onClick={deletarCategoria}
+            >
+              {isLoading ? (
+                <ClipLoader color="#ffffff" size={24} />
+              ) : (
+                <span>Deletar Categoria</span>
+              )}
+            </button>
+            <button
+              className="bg-red-500 rounded-2xl w-full text-white font-semibold py-2 md:w-[15vw] hover:cursor-pointer hover:bg-red-700 transition-all duration-300"
+              onClick={retornar}
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+        <div className="md:grid md:grid-cols-3 md:px-4 text-gray-400 font-semibold hidden">
+          <p className="md:hidden">Nome</p>
+          <p className="md:hidden">Descrição</p>
+        </div>
+        <div className="flex flex-col gap-2">
+          <ListCategorias />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
