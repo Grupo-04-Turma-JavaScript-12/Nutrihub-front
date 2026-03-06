@@ -1,48 +1,36 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-// import { SyncLoader } from "react-spinners";
+import { Link, useNavigate } from "react-router-dom";
+import { SyncLoader } from "react-spinners";
 import { AuthContext } from "../../../contexts/AuthContext";
 import type Categoria from "../../../models/Categoria";
 import { buscar } from "../../../services/Service";
-import CardCategoria from "../cardcategoria/CardCategoria"; 
 import { ToastAlerta } from "../../../utils/ToastAlerta";
+import CardCategoria from "../cardcategoria/CardCategoria";
 
 function ListaCategorias() {
-  //constante navigate, que usa o hook useNavigate(). Com ela, consigo redirecionar o usuário para outras páginas da aplicação sempre que necessário
   const navigate = useNavigate();
 
-  //Criei o estado isLoading, do tipo boolean, com valor inicial false, usando o hook useState
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [categorias, setCategorias] = useState<Categoria[]>([]);
 
-  // Usei useContext(AuthContext) para acessar os valores do contexto, desestruturando o estado usuario e a função handleLogout fornecidos pelo provedor AuthProvider
-  const { usuario, handleLogout } = useContext(AuthContext);
+  const { restaurante, handleLogout } = useContext(AuthContext);
+  const token = restaurante.token;
 
-  //A constante token, que recebe o JWT do usuário autenticado. Esse token será enviado em requisições a endpoints protegidos, garantindo que apenas usuários autenticados acessem os recursos da aplicação.
-  const token = usuario.token;
-
-  //Usei o hook useEffect para monitorar mudanças no estado token do usuário.
   useEffect(() => {
     if (token === "") {
-      ToastAlerta("Você precisa estar logado!", 'erro');
+      ToastAlerta("Você precisa estar logado!", "info");
       navigate("/");
     }
   }, [token]);
 
-  
   useEffect(() => {
     buscarCategorias();
   }, [categorias.length]);
 
   async function buscarCategorias() {
-    //try/catch para tratar erros ao enviar a requisição GET para o backend
     try {
-      // O estado isLoading, indica que o carregamento está em andamento.
       setIsLoading(true);
-
 
       await buscar("/categorias", setCategorias, {
         headers: { Authorization: token },
@@ -57,32 +45,51 @@ function ListaCategorias() {
   }
 
   return (
-    <>
+    <section>
       {isLoading && (
         <div className="flex justify-center w-full my-8">
-          <SyncLoader color="gray" size={32} />
+          <SyncLoader color="#312e81" size={32} />
         </div>
       )}
-
-      <div className="flex justify-center w-full my-4">
-        <div className="container flex flex-col">
-          {!isLoading && categorias.length === 0 && (
-            <span className="text-3xl text-center my-8">
-              Nenhuma Categoria foi encontrado!
-            </span>
-          )}
-
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 
-             lg:grid-cols-3 gap-8"
-          >
-            {categorias.map((categoria) => (
-              <CardCategoria key={categoria.id} categoria={categoria} />
-            ))}
-          </div>
-        </div>
+      <div className="pt-15">
+        <h2 className="text-3xl font-bold text-center py-4 md:text-4xl">
+          Categorias
+        </h2>
       </div>
-    </>
+      <div className="md:container md:mx-auto md:py-4 p-4 flex flex-col gap-4 md:gap-0 border-t-[0.5px] border-gray-300">
+        <Link to={"/cadastrarcategoria"}>
+          <div className="flex justify-end">
+            <button className="bg-[#00856F] rounded-2xl w-full text-white font-semibold py-2 md:w-[15vw] hover:cursor-pointer hover:bg-[#044d40] transition-all duration-300">
+              Nova Categoria
+            </button>
+          </div>
+        </Link>
+        <div className="md:grid md:grid-cols-3 md:px-4 font-semibold hidden">
+          <p className="md:hidden">Nomee</p>
+          <p className="md:hidden">Descrição</p>
+        </div>
+
+        {!isLoading && categorias.length === 0 && (
+          <span className="text-3xl text-center my-8">
+            Nenhum Tema foi encontrado!
+          </span>
+        )}
+
+        {categorias.length !== 0 && (
+          <div>
+            <div className="md:grid md:grid-cols-3 md:px-4 font-semibold hidden">
+              <p>Nome</p>
+              <p>Descrição</p>
+            </div>
+            <div className="flex flex-col gap-2">
+              {categorias.map((categoria) => (
+                <CardCategoria key={categoria.id} categoria={categoria} />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
   );
 }
 export default ListaCategorias;
