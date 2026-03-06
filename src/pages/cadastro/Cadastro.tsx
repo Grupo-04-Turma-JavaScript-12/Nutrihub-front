@@ -21,7 +21,7 @@ function Cadastro() {
   });
 
   function retornar() {
-    navigate("/login");
+    navigate("/");
   }
 
   useEffect(() => {
@@ -48,7 +48,7 @@ function Cadastro() {
       setIsLoading(true);
 
       try {
-        await cadastrarUsuario("/usuarios/cadastrar", usuario, setUsuario);
+        await cadastrarUsuario(`/restaurantes/cadastrar`, usuario, setUsuario);
         ToastAlerta("Usuário cadastrado com sucesso!", "sucesso");
       } catch (error) {
         ToastAlerta("Erro ao cadastrar o usuário!", "erro");
@@ -56,7 +56,7 @@ function Cadastro() {
     } else {
       ToastAlerta(
         "Dados do usuário inconsistentes! Verifique as informações do cadastro.",
-        "Atenção"
+        "info"
       );
       setUsuario({ ...usuario, senha: "" });
       setConfirmarSenha("");
