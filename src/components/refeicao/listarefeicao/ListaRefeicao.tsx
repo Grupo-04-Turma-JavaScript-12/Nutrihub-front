@@ -67,11 +67,11 @@ function ListaRefeicao() {
           <SyncLoader color="#312e81" size={32} />
         </div>
       )}
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-white pt-15">
         <Navbar />
         <main className="pb-20">
           <section className="mx-auto max-w-6xl px-6 pt-10">
-            <div className="flex flex-col gap-8 md:flex-row md:items-start">
+            <div className="flex flex-col gap-8 items-center md:flex-row md:items-start">
               <div className="shrink-0">
                 <div className="h-40 w-40 overflow-hidden rounded-full bg-zinc-200">
                   <img
@@ -153,7 +153,7 @@ function ListaRefeicao() {
                 </div>
               </div>
 
-              <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-6 grid grid-cols-1 place-items-center gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {refeicoes.map((refeicao) => (
                   <CardRefeicao key={refeicao.id} refeicao={refeicao} />
                 ))}

@@ -53,7 +53,7 @@ function FormRefeicao() {
     try {
       const res = await fetch(
         `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
-        { method: "POST", body: formData },
+        { method: "POST", body: formData }
       );
       const data = await res.json();
       setRefeicao((prev) => ({
@@ -189,7 +189,7 @@ function FormRefeicao() {
   const carregandoCategoria = categoria.descricao === "";
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-zinc-900/40 p-4 sm:p-6">
+    <div className="min-h-screen flex items-center justify-center bg-zinc-900/40 p-4 sm:p-6 pt-20 md:pt-20">
       <div className="w-full max-w-lg rounded-2xl bg-zinc-50 p-6 sm:p-8 shadow-xl">
         {/* Cabeçalho */}
         <div className="flex flex-col items-center text-center mb-6">
