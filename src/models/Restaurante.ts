@@ -1,6 +1,6 @@
-import type { Refeicao } from "./Refeicao";
+import type Refeicao from "./Refeicao";
 
-export interface Restaurante {
+export default interface Restaurante {
   id: number;
   nome: string;
   usuario: string;

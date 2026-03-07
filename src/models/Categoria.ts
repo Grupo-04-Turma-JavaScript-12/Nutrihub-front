@@ -1,6 +1,6 @@
-import type { Refeicao } from "./Refeicao";
+import type Refeicao from "./Refeicao";
 
-export interface Categoria {
+export default interface Categoria {
   id: number;
   descricao: string;
   refeicao?: Refeicao[] | null;
