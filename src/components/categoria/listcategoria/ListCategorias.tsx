@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { SyncLoader } from "react-spinners";
 import { AuthContext } from "../../../contexts/AuthContext";
 import type Categoria from "../../../models/Categoria";
@@ -7,7 +7,7 @@ import { buscar } from "../../../services/Service";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
 import CardCategoria from "../cardcategoria/CardCategoria";
 
-function ListaCategorias() {
+function ListCategorias() {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -51,24 +51,8 @@ function ListaCategorias() {
           <SyncLoader color="#312e81" size={32} />
         </div>
       )}
-      <div className="pt-15">
-        <h2 className="text-3xl font-bold text-center py-4 md:text-4xl">
-          Categorias
-        </h2>
-      </div>
-      <div className="md:container md:mx-auto md:py-4 p-4 flex flex-col gap-4 md:gap-0 border-t-[0.5px] border-gray-300">
-        <Link to={"/cadastrarcategoria"}>
-          <div className="flex justify-end">
-            <button className="bg-[#00856F] rounded-2xl w-full text-white font-semibold py-2 md:w-[15vw] hover:cursor-pointer hover:bg-[#044d40] transition-all duration-300">
-              Nova Categoria
-            </button>
-          </div>
-        </Link>
-        <div className="md:grid md:grid-cols-3 md:px-4 font-semibold hidden">
-          <p className="md:hidden">Nomee</p>
-          <p className="md:hidden">Descrição</p>
-        </div>
 
+      <div className="md:container md:mx-auto md:py-4 p-4 flex flex-col gap-4 md:gap-0">
         {!isLoading && categorias.length === 0 && (
           <span className="text-3xl text-center my-8">
             Nenhum Tema foi encontrado!
@@ -92,4 +76,5 @@ function ListaCategorias() {
     </section>
   );
 }
-export default ListaCategorias;
+
+export default ListCategorias;
