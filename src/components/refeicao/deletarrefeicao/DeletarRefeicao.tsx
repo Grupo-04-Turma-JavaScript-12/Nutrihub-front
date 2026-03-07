@@ -15,8 +15,8 @@ function DeletarRefeicao() {
 
   const { id } = useParams<{ id: string }>();
 
-  const { usuario, handleLogout } = useContext(AuthContext);
-  const token = usuario.token;
+  const { restaurante, handleLogout } = useContext(AuthContext);
+  const token = restaurante.token;
 
   async function buscarPorId(id: string) {
     try {

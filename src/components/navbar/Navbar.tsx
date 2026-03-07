@@ -1,9 +1,9 @@
+import { ListIcon } from "@phosphor-icons/react";
 import { useState } from "react";
-import { ListIcon } from "@phosphor-icons/react"
+import { Link } from "react-router-dom";
 
 function Navbar() {
-
-  const [menuAberto, setMenuAberto] = useState(false)
+  const [menuAberto, setMenuAberto] = useState(false);
 
   return (
     <header className="bg-[#00856F] w-full fixed top-0 left-0 z-50">
@@ -13,17 +13,28 @@ function Navbar() {
         </div>
 
         <ul className="hidden md:flex text-amber-50 gap-10">
-          <li className="hover:underline hover:cursor-pointer">Home</li>
-          <li className="hover:underline hover:cursor-pointer">Perfil</li>
-          <li className="hover:underline hover:cursor-pointer">Refeições</li>
-          <li className="hover:underline hover:cursor-pointer">Categorias</li>
-
+          <li className="hover:underline hover:cursor-pointer">
+            {" "}
+            <Link to="/home"> Home</Link>
+          </li>
+          <li className="hover:underline hover:cursor-pointer">
+            <Link to="/perfil">Perfil</Link>
+          </li>
+          <li className="hover:underline hover:cursor-pointer">
+            <Link to="/refeicoes">Refeições</Link>
+          </li>
+          <li className="hover:underline hover:cursor-pointer">
+            <Link to="/categorias">Categorias</Link>
+          </li>
         </ul>
 
         <div className="hidden md:block">
-          <button className="px-6 py-2 rounded-xl border text-white font-semibold hover:bg-white hover:text-[#00856F] transition-all duration-300">
+          <Link
+            to="/login"
+            className="px-6 py-2 rounded-xl border text-white font-semibold hover:bg-white hover:text-[#00856F] transition-all duration-300"
+          >
             ENTRAR
-          </button>
+          </Link>
         </div>
 
         {/* Icone mobile */}
@@ -38,13 +49,25 @@ function Navbar() {
       {/* Menu Mobile */}
       {menuAberto && (
         <div className="md:hidden bg-[#006d5b] flex flex-col items-center gap-4 py-6 text-white">
-          <span className="hover:underline cursor-pointer">Home</span>
-          <span className="hover:underline cursor-pointer">Perfil</span>
-          <span className="hover:underline cursor-pointer">Refeições</span>
-          <span className="hover:underline cursor-pointer">Categorias</span>
-          <button className="mt-4 px-6 py-2 rounded-xl border font-semibold">
+          <span className="hover:underline hover:cursor-pointer">
+            {" "}
+            <Link to="/home"> Home</Link>
+          </span>
+          <span className="hover:underline hover:cursor-pointer">
+            <Link to="/perfil">Perfil</Link>
+          </span>
+          <span className="hover:underline hover:cursor-pointer">
+            <Link to="/refeicoes">Refeições</Link>
+          </span>
+          <span className="hover:underline hover:cursor-pointer">
+            <Link to="/categorias">Categorias</Link>
+          </span>
+          <Link
+            to="/login"
+            className="mt-4 px-6 py-2 rounded-xl border font-semibold"
+          >
             ENTRAR
-          </button>
+          </Link>
         </div>
       )}
     </header>

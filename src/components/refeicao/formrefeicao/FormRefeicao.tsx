@@ -35,8 +35,8 @@ function FormRefeicao() {
 
   const [refeicao, setRefeicao] = useState<Refeicao>({} as Refeicao);
 
-  const { usuario, handleLogout } = useContext(AuthContext);
-  const token = usuario.token;
+  const { restaurante, handleLogout } = useContext(AuthContext);
+  const token = restaurante.token;
 
   const { id } = useParams<{ id: string }>();
 
@@ -60,7 +60,7 @@ function FormRefeicao() {
         ...prev,
         foto: data.secure_url,
         categoria: categoria,
-        restaurante: usuario,
+        restaurante: restaurante,
       }));
     } catch {
       ToastAlerta("Erro ao fazer upload da imagem", "erro");
@@ -134,7 +134,7 @@ function FormRefeicao() {
       ...refeicao,
       [e.target.name]: value,
       categoria: categoria,
-      restaurante: usuario,
+      restaurante: restaurante,
     });
   }
 

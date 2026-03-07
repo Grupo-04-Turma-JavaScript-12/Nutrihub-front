@@ -17,8 +17,8 @@ function ListaRefeicao() {
   const [refeicoes, setRefeicoes] = useState<Refeicao[]>([]);
   const [categorias, setCategorias] = useState<Categoria[]>([]);
 
-  const { usuario, handleLogout } = useContext(AuthContext);
-  const token = usuario.token;
+  const { restaurante, handleLogout } = useContext(AuthContext);
+  const token = restaurante.token;
 
   useEffect(() => {
     if (token === "") {
@@ -77,14 +77,14 @@ function ListaRefeicao() {
                   <img
                     className="h-full w-full object-cover"
                     alt="Store"
-                    src={usuario.foto}
+                    src={restaurante.foto}
                   />
                 </div>
               </div>
 
               <div className="flex-1">
                 <h1 className="text-3xl font-semibold text-zinc-800">
-                  {usuario.nome}
+                  {restaurante.nome}
                 </h1>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import { PencilIcon, TrashIcon } from "@phosphor-icons/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import type Refeicao from "../../../models/Refeicao";
 
 interface RefeicaoProps {
@@ -7,8 +7,6 @@ interface RefeicaoProps {
 }
 
 function CardRefeicao({ refeicao }: RefeicaoProps) {
-  const navigate = useNavigate();
-
   return (
     <article className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm w-64">
       <div className="relative h-36 w-full bg-zinc-100">
@@ -38,7 +36,7 @@ function CardRefeicao({ refeicao }: RefeicaoProps) {
 
         <div className="mt-3 flex items-center justify-between">
           <span className="text-xs font-semibold text-zinc-700">
-            {/* R$ {refeicao.preco.toFixed(2)} */}
+            R$ {refeicao.preco}
           </span>
 
           <div className="flex items-center gap-2">
