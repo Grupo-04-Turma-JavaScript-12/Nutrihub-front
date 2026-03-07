@@ -1,4 +1,4 @@
-import type CardServicos from "../../models/Servicos";
+import type CardServicos from "../../../models/Servicos";
 
 interface CardLadingProps {
     card: CardServicos

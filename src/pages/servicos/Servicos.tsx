@@ -1,4 +1,5 @@
-import ListarServicos from "../../components/card/ListaServicos"
+import ListarServicos from "../../components/servicos/card/ListaServicos"
+
 
 function Servicos() {
     return (

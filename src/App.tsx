@@ -1,6 +1,8 @@
 import "./App.css";
+import ListaEquipe from "./components/equipe/listaequipe/ListaEquipe";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
+import ListarPlanos from "./components/planos/listaplanos/ListaPlano";
 import Contato from "./pages/contato/Contato";
 import Home from "./pages/Home/Home";
 import Servicos from "./pages/servicos/Servicos";
@@ -15,6 +17,8 @@ function App() {
           <Home />
           <Servicos />
           <Sobrenos />
+          <ListarPlanos />
+          <ListaEquipe />
           <Contato />
         </main>
         {/* <h1 className="text-8xl text-amber-900">DEIXAR COMO ESTAVA</h1> */}
