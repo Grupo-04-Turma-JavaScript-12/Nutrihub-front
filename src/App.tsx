@@ -1,11 +1,15 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Perfil from "./pages/perfil/Perfil";
 
 function App() {
   return (
     <>
-      <div>
-        <h1 className="text-8xl text-amber-900">DEIXAR COMO ESTAVA</h1>
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/perfil" element={<Perfil />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

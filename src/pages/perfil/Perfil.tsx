@@ -30,7 +30,7 @@ function Perfil() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#B4B4B4]">
 
-      <div className="bg-white w-130 rounded-2xl shadow-xl overflow-hidden">
+      <div className="bg-white w-130 rounded-2xl shadow-2xl overflow-hidden">
         <div className="bg-[#00856F] h-28"></div>
 
         <div className="flex flex-col items-center -mt-14 px-8 pb-8">
