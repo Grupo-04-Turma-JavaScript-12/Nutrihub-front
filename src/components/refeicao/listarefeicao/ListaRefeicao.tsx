@@ -36,9 +36,20 @@ function ListaRefeicao() {
     try {
       setIsLoading(true);
 
-      await buscar("/refeicoes", setRefeicoes, {
-        headers: { Authorization: token },
-      });
+      await buscar(
+        "/refeicoes",
+        (dados: Refeicao[]) => {
+          // Filtramos para manter apenas as refeições onde o id do restaurante
+          // seja igual ao id do restaurante logado no contexto
+          const refeicoesFiltradas = dados.filter(
+            (item) => item.restaurante?.id === restaurante.id,
+          );
+          setRefeicoes(refeicoesFiltradas);
+        },
+        {
+          headers: { Authorization: token },
+        },
+      );
     } catch (error: any) {
       if (error.toString().includes("401")) {
         handleLogout();
