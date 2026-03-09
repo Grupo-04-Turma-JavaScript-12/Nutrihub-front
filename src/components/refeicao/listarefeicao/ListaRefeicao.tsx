@@ -138,15 +138,16 @@ function ListaRefeicao() {
                 </div>
 
                 <div className="mt-3 space-y-2 text-sm text-zinc-600">
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      className="h-4 w-4 rounded border-zinc-300"
-                    />
-                    {categorias.map((categoria) => (
+                  {categorias.map((categoria) => (
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        className="h-4 w-4 rounded border-zinc-300"
+                      />
+
                       <span>{categoria.nome}</span>
-                    ))}
-                  </label>
+                    </label>
+                  ))}
                 </div>
               </div>
             </aside>
