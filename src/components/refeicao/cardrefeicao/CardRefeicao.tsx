@@ -1,12 +1,13 @@
-import { PencilIcon, TrashIcon } from "@phosphor-icons/react";
+import { PencilIcon, StarIcon, TrashIcon } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import type Refeicao from "../../../models/Refeicao";
 
 interface RefeicaoProps {
   refeicao: Refeicao;
+  isRecomendacao?: boolean;
 }
 
-function CardRefeicao({ refeicao }: RefeicaoProps) {
+function CardRefeicao({ refeicao, isRecomendacao }: RefeicaoProps) {
   return (
     <article className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm w-64">
       <div className="relative h-36 w-full bg-zinc-100">
@@ -15,13 +16,20 @@ function CardRefeicao({ refeicao }: RefeicaoProps) {
           alt={refeicao.nome}
           src={refeicao.foto}
         />
-        <button
-          className="absolute right-3 top-3 grid h-6 w-6 place-items-center rounded-full bg-white/90 text-[12px] text-rose-500 shadow"
-          aria-label="favorite"
-          title="favorite"
-        >
-          ♡
-        </button>
+        {isRecomendacao ? (
+          <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-amber-400 px-2 py-1 text-[10px] font-bold text-white shadow">
+            <StarIcon size={12} weight="fill" />
+            Prato do dia
+          </div>
+        ) : (
+          <button
+            className="absolute right-3 top-3 grid h-6 w-6 place-items-center rounded-full bg-white/90 text-[12px] text-rose-500 shadow"
+            aria-label="favorite"
+            title="favorite"
+          >
+            ♡
+          </button>
+        )}
       </div>
 
       <div className="px-4 py-4">

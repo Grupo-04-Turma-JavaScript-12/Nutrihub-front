@@ -11,7 +11,7 @@ import CardRefeicao from "../cardrefeicao/CardRefeicao";
 
 function ListaRefeicao() {
   const navigate = useNavigate();
-
+  const [recomendacao, setRecomendacao] = useState<Refeicao | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [refeicoes, setRefeicoes] = useState<Refeicao[]>([]);
@@ -45,6 +45,13 @@ function ListaRefeicao() {
             (item) => item.restaurante?.id === restaurante.id,
           );
           setRefeicoes(refeicoesFiltradas);
+
+          if (refeicoesFiltradas.length > 0) {
+            const indiceAleatorio = Math.floor(
+              Math.random() * refeicoesFiltradas.length,
+            );
+            setRecomendacao(refeicoesFiltradas[indiceAleatorio]);
+          }
         },
         {
           headers: { Authorization: token },
@@ -73,11 +80,6 @@ function ListaRefeicao() {
 
   return (
     <>
-      {isLoading && (
-        <div className="flex justify-center w-full my-8">
-          <SyncLoader color="#312e81" size={32} />
-        </div>
-      )}
       <div className="min-h-screen bg-white pt-15">
         <Navbar />
         <main className="pb-20">
@@ -164,11 +166,25 @@ function ListaRefeicao() {
                   </button>
                 </div>
               </div>
-
+              {isLoading && (
+                <div className="flex justify-center w-full my-8">
+                  <SyncLoader color="#312e81" size={32} />
+                </div>
+              )}
               <div className="mt-6 grid grid-cols-1 place-items-center gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {refeicoes.map((refeicao) => (
-                  <CardRefeicao key={refeicao.id} refeicao={refeicao} />
-                ))}
+                {[...refeicoes]
+                  .sort((a, b) => {
+                    if (a.id === recomendacao?.id) return -1; // 'a' vem primeiro
+                    if (b.id === recomendacao?.id) return 1; // 'b' vem primeiro
+                    return 0; // mantém a ordem original para os outros
+                  })
+                  .map((refeicao) => (
+                    <CardRefeicao
+                      key={refeicao.id}
+                      refeicao={refeicao}
+                      isRecomendacao={recomendacao?.id === refeicao.id}
+                    />
+                  ))}
               </div>
             </section>
           </div>

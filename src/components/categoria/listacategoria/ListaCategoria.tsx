@@ -46,11 +46,6 @@ function ListaCategorias() {
 
   return (
     <section>
-      {isLoading && (
-        <div className="flex justify-center w-full my-8">
-          <SyncLoader color="#312e81" size={32} />
-        </div>
-      )}
       <div className="pt-15">
         <h2 className="text-3xl font-bold text-center py-4 md:text-4xl">
           Categorias
@@ -82,6 +77,11 @@ function ListaCategorias() {
               <p>Descrição</p>
             </div>
             <div className="flex flex-col gap-2">
+              {isLoading && (
+                <div className="flex justify-center w-full my-8">
+                  <SyncLoader color="#312e81" size={32} />
+                </div>
+              )}
               {categorias.map((categoria) => (
                 <CardCategoria key={categoria.id} categoria={categoria} />
               ))}
