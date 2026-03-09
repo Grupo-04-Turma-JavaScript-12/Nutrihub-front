@@ -1,7 +1,7 @@
 import { useEffect, useState, type ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-import type { Restaurante } from "../../models/Restaurante";
+import type Restaurante from "../../models/Restaurante";
 import { cadastrarUsuario } from "../../services/Service";
 import { ToastAlerta } from "../../utils/ToastAlerta";
 
@@ -56,7 +56,7 @@ function Cadastro() {
     } else {
       ToastAlerta(
         "Dados do usuário inconsistentes! Verifique as informações do cadastro.",
-        "info"
+        "info",
       );
       setUsuario({ ...usuario, senha: "" });
       setConfirmarSenha("");
